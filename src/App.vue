@@ -1,9 +1,10 @@
 <template>
-  <div id="app">
-    <p>{{ subtitle }}</p>
-    <button id="buttonT" v-on:click="clicked">change it</button>
+  <div>
+    <button @click="pop">Back</button>
+    <button @click="homeClick">Home</button>
+    <button @click="profileClick">Profile</button>
     <img src="./assets/logo.png">
-    <!-- <router-view/> -->
+    <router-view />
   </div>
 </template>
 
@@ -12,8 +13,8 @@ export default {
   name: "App",
   data() {
     return {
-      subtitle:null
-    }
+      subtitle: "1111"
+    };
   },
 
   beforeCreate() {
@@ -49,8 +50,27 @@ export default {
   },
 
   methods: {
-    clicked() {
-      this.subtitle = 'clicked'
+    homeClick() {
+      console.log("1111");
+      this.$router.push({
+        path: `/pages/home/index`
+      });
+    },
+
+    profileClick(){
+      this.$router.push({
+        path: `/pages/profile/index`
+      });
+    },
+
+    pop(){
+      this.$router.back();
+    }
+  },
+
+  computed: {
+    username() {
+      return this.$route;
     }
   }
 };
