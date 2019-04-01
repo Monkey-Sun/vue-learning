@@ -2,21 +2,29 @@
   <div id="home">
     <p>i'm home</p>
     <div v-for="(item, index) in items" :key="index">
-      <div class="cell">
-        <p>标题</p>
-        <p>日期</p>
-      </div>
+      <date_cell @cellClickAt="subcomTaped" :item = "item" :index = "index"/>
     </div>
   </div>
 </template>
 
 <script>
+import date_cell from "@/components/date_cell";
+
+import Store from "@/store";
+
 export default {
-  name:'Home',
+  name: "Home",
+  components: { date_cell },
   data() {
     return {
       items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
     };
+  },
+  methods: {
+    subcomTaped(e) {
+      alert(e);
+      Store.commit('increment');
+    }
   }
 };
 </script>
@@ -27,13 +35,4 @@ export default {
   flex-direction: column;
   align-items: stretch;
 }
-
-.cell{
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 </style>
