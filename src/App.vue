@@ -1,10 +1,15 @@
 <template>
-  <div>
-    <button @click="pop">Back</button>
-    <button @click="homeClick">Home</button>
-    <button @click="profileClick">Profile</button>
-    <img src="./assets/logo.png">
-    <router-view />
+  <div id="app">
+    <div style="position:fixed;width:100%;height:44px;top:0;">
+      <van-nav-bar :title="$route.meta.title" @click-left="onClickLeft" @click-right="onClickRight"/>
+    </div>
+
+    <van-tabbar v-model="active" @change="tabTaped">
+      <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+      <van-tabbar-item icon="search" dot>发现</van-tabbar-item>
+      <van-tabbar-item icon="setting-o" info="20">我的</van-tabbar-item>
+    </van-tabbar>
+    <router-view/>
   </div>
 </template>
 
@@ -13,66 +18,49 @@ export default {
   name: "App",
   data() {
     return {
-      subtitle: "1111"
+      active: 0
     };
   },
 
-  beforeCreate() {
-    console.log("before created");
-  },
-
-  created() {
-    console.log("be created");
-  },
-
-  beforeMount() {
-    console.log("before Mount");
-  },
-
   mounted() {
-    console.log("Mount");
-  },
-
-  beforeUpdate() {
-    console.log("before update");
-  },
-
-  updated() {
-    console.log("updated");
-  },
-
-  beforeDestroy() {
-    console.log("before destroy");
-  },
-
-  destroyed() {
-    console.log("destroyed");
+    this.$router.push({
+      path: "/pages/home/index"
+    });
   },
 
   methods: {
-    homeClick() {
-      console.log("1111");
-      this.$router.push({
-        path: `/pages/home/index`
-      });
-    },
-
-    profileClick(){
-      this.$router.push({
-        path: `/pages/profile/index`
-      });
-    },
-
-    pop(){
+    pop() {
       this.$router.back();
+    },
+
+    onClickLeft() {
+      history.back();
+    },
+
+    onClickRight() {},
+
+    tabTaped(e) {
+      switch (e) {
+        case 0:
+          this.$router.push({
+            path: `/pages/home/index`
+          });
+          break;
+        case 1:
+          this.$router.push({
+            path: `/pages/find/index`
+          });
+          break;
+        default:
+          this.$router.push({
+            path: `/pages/profile/index`
+          });
+          break;
+      }
     }
   },
 
-  computed: {
-    username() {
-      return this.$route;
-    }
-  }
+  computed: {},
 };
 </script>
 
@@ -81,13 +69,8 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding:44px 0;
 }
 
-#buttonT {
-  border: 1px solid red;
-  border-radius: 3px;
-}
 </style>

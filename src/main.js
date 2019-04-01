@@ -3,8 +3,12 @@
 import Vue from 'vue'
 import router from './router/index'
 import App from './App'
+import Vant from 'vant';
+import 'vant/lib/index.css';
 
 Vue.config.productionTip = false
+
+Vue.use(Vant);
 
 new Vue({
   el: '#app',
