@@ -9,7 +9,7 @@
 
 <script>
 import date_cell from "@/components/date_cell";
-
+import  http from "@/http";
 import Store from "@/store";
 
 export default {
@@ -20,10 +20,20 @@ export default {
       items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
     };
   },
+
   methods: {
     subcomTaped(e) {
       alert(e);
       Store.commit('increment');
+
+      http.get('v1/home', {
+        userId:29
+      }).then(res =>{
+        console.log(res);
+      });
+    },
+
+    loadData(){
     }
   }
 };
