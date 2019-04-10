@@ -18,7 +18,8 @@ export default {
   name: "App",
   data() {
     return {
-      active: 0
+      active: 0,
+      text:'根组件的属性'
     };
   },
 
@@ -65,12 +66,30 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   padding:44px 0;
+  background-color: rgb(230, 230, 230);
+}
+
+p{
+  padding: 0;
+  margin: 0;
+}
+
+div{
+  padding: 0;
+  background-color: white;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
 }
 
 </style>

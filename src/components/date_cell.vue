@@ -9,7 +9,12 @@
 
 <script>
 export default {
-  props:["item", "index"],
+  props:{
+    item : String,
+    index : Number,
+    callback:Function,
+    promise:Promise
+  },
   methods: {
     cellTaped() {
       this.$emit("cellClickAt", `你点我干嘛?${this.index}`);
