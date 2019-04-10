@@ -60,6 +60,10 @@
           </div>
         </div>
       </div>
+
+      <div v-for="(item, index) in model.chosens" :key="index">
+        <home_goods_cell :product = "item" />
+      </div>
     </div>
   </div>
 </template>

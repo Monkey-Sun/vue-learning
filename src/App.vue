@@ -92,4 +92,12 @@ div{
   color: transparent;
 }
 
+.mutipleline {
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  -webkit-box-orient: vertical;
+}
+
 </style>
