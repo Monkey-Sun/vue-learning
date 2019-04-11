@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div style="display:flex;justify-content: space-between;margin: 10px 0;">
+        <div style="display:flex;justify-content: space-between;margin: 10px 0;" @click="buygoods(item.product.productId)">
           <div style="display:flex;align-items:center;">
             <div style="display:flex;">
               <div v-for="(user, usindex) in item.users" :key="usindex">
@@ -107,6 +107,15 @@ export default {
             that.list.push(item);
           }
         });
+    },
+
+    buygoods(e){
+        this.$router.push({
+            name:'goods_detail',
+            params:{
+                productId: e
+            }
+        })
     }
   }
 };
