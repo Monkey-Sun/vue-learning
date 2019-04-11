@@ -2,7 +2,7 @@
   <div>
     <div
       class="div-box"
-      style="padding:17.5px;display:flex;flex-direction:column;align-items:stretch;"
+      style="padding:10px;display:flex;flex-direction:column;align-items:stretch;"
     >
       <div v-for="(item, index) in list" :key="index">
         <div style="display:flex;">
@@ -28,8 +28,14 @@
         >{{ item.content.textContent }}</p>
 
         <div style="display:flex;flex-wrap:wrap;">
-          <div v-for="(image, iindex) in item.content.photos" :key="iindex">
-            <img :src="image.ThumbUrl" width="110px" height="110px" style="margin:7.5px;" alt>
+          <div v-for="(image, imgIndex) in item.content.photos" :key="imgIndex">
+            <img
+              :src="image.ThumbUrl"
+              width="110px"
+              height="110px"
+              style="margin:3.5px;"
+              @click="previewImage(item.content.photos, imgIndex)"
+            >
           </div>
         </div>
 
@@ -55,7 +61,10 @@
           </div>
         </div>
 
-        <div style="display:flex;justify-content: space-between;margin: 10px 0;" @click="buygoods(item.product.productId)">
+        <div
+          style="display:flex;justify-content: space-between;margin: 10px 0;"
+          @click="buygoods(item.product.productId)"
+        >
           <div style="display:flex;align-items:center;">
             <div style="display:flex;">
               <div v-for="(user, usindex) in item.users" :key="usindex">
@@ -69,7 +78,7 @@
           >我也要</div>
         </div>
 
-        <div style="height:1px;background:#E5E5E5;margin:20px 0;" />
+        <div style="height:1px;background:#E5E5E5;margin:20px 0;"/>
       </div>
     </div>
   </div>
@@ -78,6 +87,7 @@
 
 <script>
 import http from "@/http";
+import { ImagePreview } from 'vant';
 export default {
   name: "find",
   data() {
@@ -109,13 +119,20 @@ export default {
         });
     },
 
-    buygoods(e){
-        this.$router.push({
-            name:'goods_detail',
-            params:{
-                productId: e
-            }
-        })
+    buygoods(e) {
+      this.$router.push({
+        name: "goods_detail",
+        params: {
+          productId: e
+        }
+      });
+    },
+
+    previewImage(photos, index) {
+      const instance = ImagePreview({
+        images: photos.map((item) => item.ImgUrl),
+        startPosition:index
+      });
     }
   }
 };
