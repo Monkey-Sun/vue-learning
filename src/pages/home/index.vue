@@ -4,7 +4,8 @@
       <van-tabs>
         <van-tab v-for="(item, index) in model.topTypes" :key="index" :title="item.plName"/>
       </van-tabs>
-      <van-swipe :autoplay="3000" :height="120">
+      <div class="div-box">
+        <van-swipe :autoplay="3000" :height="120">
         <van-swipe-item v-for="(item, index) in model.midBanners" :key="index">
           <div style="padding:0 15px;margin-top:10px;">
             <img
@@ -17,8 +18,9 @@
           </div>
         </van-swipe-item>
       </van-swipe>
+      </div>
 <!-- 中间的集合视图 -->
-      <div style="margin-bottom: 10px;">
+      <div class="div-box" style="margin-bottom: 10px;">
         <div id="collection_div">
           <div
             style="display:flex;flex-direction:column;align-items:center;"
@@ -47,7 +49,7 @@
         </div>
       </div>
 
-      <div id="live-box">
+      <div class="div-box" id="live-box">
         <div style="padding:5px 15px;">
            <img src="http://img.inongjia.net/wxapp/images/ic_home_zbj.png" width="87px">
         </div>
@@ -61,8 +63,13 @@
         </div>
       </div>
 
-      <div v-for="(item, index) in model.chosens" :key="index">
-        <home_goods_cell :product = "item" />
+      <div class="div-box" style="padding:0 10px;">
+        <div style="padding:5px 15px;">
+           <img src="http://img.inongjia.net/wxapp/images/home_xsqg_ic.png" width="70px">
+        </div>
+        <div v-for="(item, index) in model.chosens" :key="index">
+        <home_goods_cell :product = "item" @goodsTap = "homeCellTaped"/>
+      </div>
       </div>
     </div>
   </div>
@@ -141,6 +148,15 @@ export default {
       alert(this.$root.text);
     },
 
+    homeCellTaped(e){
+      this.$router.push({
+        name:'goods_detail',
+        params: {
+          productid: e
+        }
+      });
+    },
+
     loadData: function() {
       this.$toast.loading({ mask: true, message: `正在加载...` });
       http
@@ -176,6 +192,7 @@ export default {
 #live-box{
   display: flex;
   flex-direction: column;
+  margin-top:10px;
 }
 
 #live-items-box{

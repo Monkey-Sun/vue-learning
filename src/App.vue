@@ -1,15 +1,22 @@
 <template>
-  <div id="app">
-    <div style="position:fixed;width:100%;height:44px;top:0;">
-      <van-nav-bar :title="$route.meta.title" @click-left="onClickLeft" @click-right="onClickRight"/>
+  <div id="app" :style="{ padding: ispush === true ? '44px 0px 0px 0px': '44px 0px' }">
+    <div style="position:fixed;width:100%;height:44px;top:0;z-index:1000;">
+      <van-nav-bar
+        :title="$route.meta.title"
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+        :left-arrow = "ispush"
+      />
     </div>
 
-    <van-tabbar v-model="active" @change="tabTaped">
-      <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item icon="search" dot>发现</van-tabbar-item>
-      <van-tabbar-item icon="setting-o" info="20">我的</van-tabbar-item>
-    </van-tabbar>
-    <router-view/>
+    <div :hidden="ispush">
+      <van-tabbar v-model="active" @change="tabTaped">
+        <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="search" dot>发现</van-tabbar-item>
+        <van-tabbar-item icon="setting-o" info="20">我的</van-tabbar-item>
+      </van-tabbar>
+    </div>
+    <router-view transition="fade" transition-mode="out-in" keep-alive/>
   </div>
 </template>
 
@@ -19,8 +26,24 @@ export default {
   data() {
     return {
       active: 0,
-      text:'根组件的属性'
+      ispush: false
     };
+  },
+
+  watch: {
+    $route(to, from) {
+      let ThisPage = to.name;
+      console.log(ThisPage);
+      if (
+        ThisPage === "home" ||
+        ThisPage === "find" ||
+        ThisPage === "profile"
+      ) {
+        this.ispush = false;
+      } else {
+        this.ispush = true;
+      }
+    }
   },
 
   mounted() {
@@ -61,27 +84,27 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {}
 };
 </script>
 
 <style>
-
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding:44px 0;
-  background-color: rgb(230, 230, 230);
+  height: 100%;
+  width: 100%;
+  background-color: rgba(248, 248, 248, 0.966);
 }
 
-p{
+p {
   padding: 0;
   margin: 0;
 }
 
-div{
+.div-box {
   padding: 0;
   background-color: white;
 }
@@ -96,8 +119,16 @@ div{
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
-  overflow: hidden; 
+  overflow: hidden;
   -webkit-box-orient: vertical;
 }
 
+.fade-transition {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter,
+.fade-leave {
+  opacity: 0;
+}
 </style>

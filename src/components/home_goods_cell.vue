@@ -1,5 +1,5 @@
 <template>
-    <div class="content-box" v-if="product !== null">
+    <div class="content-box" v-if="product !== null" @click="goodsTaped">
         <div style="width:120px;height:120px;flex-shrink:0;margin-right:10px;background-size:cover;" :style="{ backgroundImage:'url(' + product.cover + ')' }">
           <slot></slot>
         </div>
@@ -28,6 +28,9 @@ export default {
     level_price
   },
   methods: {
+    goodsTaped(){
+      this.$emit("goodsTap", `${this.product.productId}`)
+    }
   }
 };
 </script>
