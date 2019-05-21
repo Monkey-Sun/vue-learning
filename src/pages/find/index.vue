@@ -71,7 +71,7 @@
                 <img :src="user.avatar" width="28px" height="28px" style="border-radius: 14px;" alt>
               </div>
             </div>
-            <p style="margin-left:25px;font-size:10px;color:#666666;">{{item.totalNum}}人购买</p>
+            <p style="margin-left:15px;font-size:10px;color:#666666;">{{item.totalNum}}人购买</p>
           </div>
           <div
             style="background-color:#E97459;text-align:center;line-height:34px;width:90px;height:34px;border-radius:2px;color:white;font-family: PingFangHK-Medium;font-size: 14px;color: #FFFFFF;"
